@@ -94,7 +94,7 @@ Fiecare carte are un cost diferit în energie, în funcție de efectul său.
 
 ## Finalul jocului
 Jocul se încheie imediat atunci când:
-- Un jucător ajunge la **5 puncte de victorie**, sau
+- Un jucător ajunge la **8 puncte de victorie**, sau
 - Toți ceilalți monștri sunt eliminați
 
 Câștigătorul este declarat **primul jucător care îndeplinește una dintre condițiile de mai sus**.
