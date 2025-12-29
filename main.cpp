@@ -141,6 +141,41 @@ public:
     void aplicare(Monstru* m) override { m->getFulgere(); *m += valoare; }
 };
 
+//template
+template <class T>
+class ContainerZaruri {
+private:
+    T zaruri;
+public:
+    void aruncaZaruri() {
+        zaruri.clear();
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(0,5);
+        for(int i=0;i<6;i++){
+            zaruri.push_back(static_cast<SimbolZar>(dis(gen)));
+        }
+    }
+    T& getZaruri() { return zaruri; }
+    void afisareRezultate(){
+        for(auto &z: zaruri){
+            switch(z){
+                case SimbolZar::Punct1: std::cout<<"1 "; break;
+                case SimbolZar::Punct2: std::cout<<"2 "; break;
+                case SimbolZar::Punct3: std::cout<<"3 "; break;
+                case SimbolZar::Energie: std::cout<<"⚡ "; break;
+                case SimbolZar::Inima: std::cout<<"❤️ "; break;
+                case SimbolZar::Gheara: std::cout<<"🐾 "; break;
+            }
+        }
+        std::cout<<"\n";
+    }
+};
+
+int main() {
+    return 0;
+}
+
 
 
 
