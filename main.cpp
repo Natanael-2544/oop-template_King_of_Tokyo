@@ -147,7 +147,7 @@ class ContainerZaruri {
 private:
     T zaruri;
 public:
-    void aruncaZaruri() {
+    void aruncaZar() {
         zaruri.clear();
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -171,6 +171,117 @@ public:
         std::cout<<"\n";
     }
 };
+
+// ===== SINGLETON JOC =====
+class Joc {
+private:
+    std::vector<Monstru*> jucatori;
+    std::vector<Carte*> carti;
+    int maxViata = 14;
+    int maxMonstri = 4;
+    bool tokyoOcupat = false;
+    int indexTokyo = -1;
+    static Joc* instance;
+
+    Joc(){}
+public:
+    static Joc* getInstance() {
+        if(!instance) instance = new Joc;
+        return instance;
+    }
+
+    void adaugaJucatori(Monstru* m) {
+        if (jucatori.size() >= maxMonstri) {
+            throw std::runtime_error("Maximul Jucatorilor a fost atins! ");
+        }
+        jucatori.push_back(m);
+    }
+    void afisareJucatori(){
+        std::cout<<"--- Stare jucatori ---\n";
+        for(size_t i=0;i<jucatori.size();i++){
+            std::cout<<i+1<<". "<<*jucatori[i]<<"\n";
+        }
+    }
+
+    bool JocTerminat() {
+        for (auto m: jucatori) {
+            if (m->getPuncteVictorie()>=8) { return true;}
+        }
+        int alive=0;
+        for (auto m: jucatori) {
+            if (m->getViata()>0){ alive++;}
+        }
+        return alive<=1;
+    }
+
+    void runda() {
+        for(size_t i=0;i<jucatori.size();i++){
+            Monstru* j = jucatori[i];
+            if(j->getViata()<=0) continue;
+            std::cout<<"\nTura lui "<<j->getNume()<<" ("<<j->getViata()<<" viata, "<<j->getPuncteVictorie()<<" PV)\n";
+
+            ContainerZaruri<std::vector<SimbolZar>> zar;
+            zar.aruncaZar();
+            std::cout<<"Rezultat zaruri: "; zar.afisareRezultate();
+
+            // aplicare simboluri
+            std::map<SimbolZar,int> cnt;
+            for(auto z : zar.getZaruri()) {cnt[z]++;}
+
+            //Puncte de victorie
+            for(int p=1;p<=3;p++){
+                SimbolZar s = static_cast<SimbolZar>(p-1);
+                if(cnt[s]>=3) *j += p + (cnt[s]-3);
+            }
+
+            // Energie
+            if(cnt[SimbolZar::Energie]) std::cout<<"Castigi "<<cnt[SimbolZar::Energie]<<" cuburi energie ⚡\n";
+            // Vindecare
+            if(!j->getInTokyo() && cnt[SimbolZar::Inima]){
+                j->vindecare();
+            }
+
+            // Atac
+            if(cnt[SimbolZar::Gheara]){
+                std::cout<<"Vrei sa ataci alt jucator? 1=DA, 0=NU: "; int opt; std::cin>>opt;
+                if(opt==1){
+                    for(size_t k=0;k<jucatori.size();k++){
+                        if(k!=i && jucatori[k]->getViata()>0){
+                            std::cout<<"Aplici "<<cnt[SimbolZar::Gheara]<<" daune catre "<<jucatori[k]->getNume()<<"\n";
+                            *jucatori[k]-=cnt[SimbolZar::Gheara];
+                        }
+                    }
+                }
+            }
+            // Decizie Tokyo
+            if(!tokyoOcupat){
+                std::cout<<"Vrei sa intri in Tokyo? 1=DA,0=NU: ";
+                int opt; std::cin>>opt;
+                if(opt==1){ tokyoOcupat=true; indexTokyo=i; j->setInTokyo(true); *j += 1; }
+            }
+        }
+    }
+    void afisareClasament(){
+        std::sort(jucatori.begin(),jucatori.end(),[](Monstru* a, Monstru* b){ return a->getPuncteVictorie() > b->getPuncteVictorie(); });
+        std::cout<<"\n=== Clasament final ===\n";
+        for(auto j:jucatori) std::cout<<*j<<"\n";
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int main() {
     return 0;
