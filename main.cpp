@@ -224,12 +224,17 @@ private:
             }
         } else {
             // atac clasic: alegeți pe cine să atace
-            for(size_t k=0;k<jucatori.size();k++){
-                Monstru* target = jucatori[k];
-                if(target != atacator && target->getViata()>0){
-                    std::cout << "Vrei sa aplici " << daune << " daune catre " << target->getNume() << "? 1=DA,0=NU: ";
-                    int opt; std::cin>>opt;
-                    if(opt==1) *target -= daune;
+            std::vector<Monstru*> potentiali;
+            for(auto m : jucatori){
+                if(m != atacator && m->getViata() > 0) potentiali.push_back(m);
+            }
+            if(!potentiali.empty()){
+                std::cout << "Alege un jucator pe care sa il ataci:\n";
+                for(size_t i=0;i<potentiali.size();i++) std::cout << i+1 << ". " << potentiali[i]->getNume() << "\n";
+                int opt; std::cin >> opt;
+                if(opt >= 1 && opt <= (int)potentiali.size()){
+                    *potentiali[opt-1] -= daune;
+                    std::cout << atacator->getNume() << " aplica " << daune << " daune catre " << potentiali[opt-1]->getNume() << "\n";
                 }
             }
         }
@@ -248,35 +253,54 @@ private:
             }
         }
     }
+    void acordaPVLaFinalRunda() {
+        for(size_t i=0;i<jucatori.size();i++){
+            Monstru* j=jucatori[i];
+            if(j->getViata()<=0) continue;
+            if(j->getInTokyo()) *j += 2; // 2 PV pentru cel din Tokyo
+            else *j += 1; // 1 PV pentru ceilalți
+        }
+    }
     void aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt){
-        // Puncte de victorie și energie
-        for(int p=1;p<=3;p++){
-            SimbolZar s = static_cast<SimbolZar>(p-1);
-            int count = cnt[s];
-            if(count >= 3){
-                *j += p + (count - 3);
-                count -= 3;
+        if(!j->getInTokyo()){
+            for(int p=1;p<=3;p++){
+                SimbolZar s = static_cast<SimbolZar>(p-1);
+                int count = cnt[s];
+                if(count >= 3){
+                    *j += p + (count - 3); // PV pentru triplete + supliment
+                    count -= 3;
+                }
+                j->adaugaFulgere(count * p);
             }
-            j->adaugaFulgere(count * p);
+        } else {
+            // Dacă e în Tokyo, simbolurile 1,2,3 nu îi mai dau PV
+            for(int p=1;p<=3;p++){
+                SimbolZar s = static_cast<SimbolZar>(p-1);
+                int count = cnt[s];
+                j->adaugaFulgere(count * p);
+            }
         }
 
-        // Energie
         if(cnt[SimbolZar::Energie]) {
             j->adaugaFulgere(cnt[SimbolZar::Energie]);
             std::cout << j->getNume() << " castiga " << cnt[SimbolZar::Energie] << " cuburi energie *\n";
         }
 
-        // Vindecare
         if(!j->getInTokyo() && cnt[SimbolZar::Inima]){
             j->vindecare();
             std::cout << j->getNume() << " s-a vindecat\n";
         }
 
-        // Atac
         if(cnt[SimbolZar::Gheara]){
             aplicaDaune(j, cnt[SimbolZar::Gheara]);
-            // La finalul rundei, dacă nu e în Tokyo, poate intra
-            if(!j->getInTokyo()) intraInTokyo(j);
+            // dacă jucătorul nu e în Tokyo și Tokyo nu e ocupat, intră automat
+            if(!j->getInTokyo() && !tokyoOcupat){
+                tokyoOcupat = true;
+                indexTokyo = std::distance(jucatori.begin(), std::find(jucatori.begin(), jucatori.end(), j));
+                j->setInTokyo(true);
+                *j += 1; // punct pentru intrarea în Tokyo
+                std::cout << j->getNume() << " a intrat in Tokyo!\n";
+            }
         }
     }
 
@@ -359,22 +383,27 @@ public:
 
             std::cout << "\nTura lui " << j->getNume() << " (" << j->getViata() << " viata, " << j->getPuncteVictorie() << " PV)\n";
 
-            // Aruncă zaruri
             ContainerZaruri<std::vector<SimbolZar>> zar;
             zar.aruncaZar();
             std::cout << "Rezultat zaruri: "; zar.afisareRezultate();
 
-            // Contor simboluri
             std::map<SimbolZar,int> cnt;
             for(auto z : zar.getZaruri()) cnt[z]++;
 
-            // Aplică simboluri
             aplicaSimboluri(j, cnt);
-            // Decizie Tokyo
-            if(!tokyoOcupat){
-                std::cout<<"Vrei sa intri in Tokyo? 1=DA,0=NU: ";
-                int opt; std::cin>>opt;
-                if(opt==1){ tokyoOcupat=true; indexTokyo=i; j->setInTokyo(true); *j += 1; }
+            if(!tokyoOcupat && cnt[SimbolZar::Gheara] > 0) {
+                intraInTokyo(j);
+            }
+        }
+
+        // La finalul rundei, acordă puncte de victorie
+        for(auto m : jucatori){
+            if(m->getViata() <= 0) continue;
+
+            if(m->getInTokyo()){
+                *m += 2;  // jucătorul din Tokyo primește 2 PV
+            } else {
+                *m += 1;  // ceilalți jucători primesc 1 PV
             }
         }
     }
