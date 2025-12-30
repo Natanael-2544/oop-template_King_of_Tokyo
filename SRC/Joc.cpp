@@ -29,9 +29,12 @@ Joc::Joc() {}
 
 // Destructor
 Joc::~Joc() {
-    for ( auto m: jucatori) delete m;
+    for ( auto m: jucatori) {delete m;}
     jucatori.clear();
-    for (auto c: carti) delete c;
+
+    for (Carte* c : carti) {
+        delete c;
+    }
     carti.clear();
 }
 
@@ -47,8 +50,10 @@ void Joc::deleteInstance() {
 }
 
 void Joc::adaugaJucatori(Monstru* m) {
-    if (jucatori.size() >= maxMonstri)
+    if (jucatori.size() >= maxMonstri) {
+        delete m;
         throw std::runtime_error("Maximul Jucatorilor a fost atins!");
+    }
     jucatori.push_back(m);
 }
 
@@ -253,7 +258,7 @@ void Joc::verificaCumparareCarte(Monstru* j){
         c->aplicare(j);
     }
 
-    for(auto oc: oferte) delete oc;
+    for(auto oc: oferte) {delete oc;}
 }
 
 void Joc::determinaJucatorStart() {
