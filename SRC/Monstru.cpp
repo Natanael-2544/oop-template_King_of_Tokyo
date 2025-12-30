@@ -2,7 +2,7 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/Monstru.h"
+#include "Monstru.h"
 
 int Monstru::idGenerator = 0;
 

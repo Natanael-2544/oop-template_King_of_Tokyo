@@ -2,7 +2,7 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/PutereVindecare.h"
+#include "PutereVindecare.h"
 
 PutereVindecare::PutereVindecare(const std::string& nume_, int cost_, int valoare_)
     : Carte(nume_, cost_, valoare_) {}

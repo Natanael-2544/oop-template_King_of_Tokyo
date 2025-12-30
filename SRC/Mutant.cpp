@@ -2,7 +2,7 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/Mutant.h"
+#include "Mutant.h"
 
 Mutant::Mutant(const std::string& n) : Monstru(n, 12) {}
 

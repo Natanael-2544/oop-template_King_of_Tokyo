@@ -2,7 +2,8 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/Carte.h"
+#include "Carte.h"
+#include "Joc.h"
 Carte::Carte(const std::string& nume_, int cost_, int valoare_)
     : nume(nume_), cost(cost_), valoare(valoare_) {}
 

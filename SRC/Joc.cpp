@@ -2,19 +2,19 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/Joc.h"
-#include "../Include/Monstru.h"
-#include "../Include/Mutant.h"
-#include "../Include/Dragon.h"
-#include "../Include/Robot.h"
-#include "../Include/MegaMutant.h"
-#include "../Include/Carte.h"
-#include "../Include/PutereAtac.h"
-#include "../Include/PutereVindecare.h"
-#include "../Include/PutereEnergie.h"
-#include "../Include/SimbolZar.h"
-#include "../Include/ContainerZaruri.h"
-#include "../Include/MonstruFactory.h"
+#include "Joc.h"
+#include "Monstru.h"
+#include "Mutant.h"
+#include "Dragon.h"
+#include "Robot.h"
+#include "MegaMutant.h"
+#include "Carte.h"
+#include "PutereAtac.h"
+#include "PutereVindecare.h"
+#include "PutereEnergie.h"
+#include "SimbolZar.h"
+#include "ContainerZaruri.h"
+#include "MonstruFactory.h"
 #include <algorithm>
 #include <numeric>
 #include <random>

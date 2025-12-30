@@ -2,7 +2,7 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/MegaMutant.h"
+#include "MegaMutant.h"
 
 MegaMutant::MegaMutant(const std::string& n)
     : Monstru(n, 9), Mutant(n), Dragon(n), Robot(n) {}

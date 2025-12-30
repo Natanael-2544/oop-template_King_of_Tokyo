@@ -2,7 +2,7 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/Robot.h"
+#include "Robot.h"
 
 Robot::Robot(const std::string& n) : Monstru(n, 14) {}
 

@@ -5,7 +5,6 @@ cmake_minimum_required(VERSION 3.26)
 set(MAIN_PROJECT_NAME "oop")
 set(MAIN_EXECUTABLE_NAME "${MAIN_PROJECT_NAME}")
 
-
 project(${MAIN_PROJECT_NAME})
 # set(CMAKE_PROJECT_VERSION_MAJOR 0)
 # set(CMAKE_PROJECT_VERSION_MINOR 0)
@@ -20,7 +19,6 @@ include(cmake/CompilerFlags.cmake)
 include(cmake/CopyHelper.cmake)
 
 ###############################################################################
-
 # external dependencies with FetchContent
 # include(FetchContent)
 #
@@ -33,48 +31,36 @@ include(cmake/CopyHelper.cmake)
 # FetchContent_Declare(
 #         SomeLib
 #         GIT_REPOSITORY https://github.com/<SomeUser>/<SomeLib>.git
-#         GIT_TAG        <some_git_hash> # <which tag/branch @ <some_date>>
+#         GIT_TAG        <some_git_hash> # <which tag/branch @ <some_date>]
 #         GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
 # )
 #
 # FetchContent_MakeAvailable(SomeLib)
 
 ###############################################################################
-
 # external dependencies with find_package
 
 # find_package(Threads REQUIRED)
 
 ###############################################################################
-
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-include_directories(Include)
+
+
 add_executable(${MAIN_EXECUTABLE_NAME}
-    main.cpp
+        main.cpp
         SRC/Monstru.cpp
-        Include/Monstru.h
         SRC/Mutant.cpp
-        Include/Mutant.h
         SRC/Dragon.cpp
-        Include/Dragon.h
         SRC/Robot.cpp
-        Include/Robot.h
         SRC/MegaMutant.cpp
-        Include/MegaMutant.h
-        Include/MonstruFactory.h
         SRC/Carte.cpp
-        Include/Carte.h
         SRC/PutereAtac.cpp
-        Include/PutereAtac.h
         SRC/PutereVindecare.cpp
-        Include/PutereVindecare.h
         SRC/PutereEnergie.cpp
-        Include/PutereEnergie.h
-        Include/ContainerZaruri.h
         SRC/Joc.cpp
-        Include/Joc.h
-        Include/SimbolZar.h
 )
+
+target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE Include)
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
@@ -84,7 +70,6 @@ set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
 # you want to compile with the set compiler flags
 
 ###############################################################################
-
 # use SYSTEM so cppcheck and clang-tidy do not report warnings from these directories
 # target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ext/<SomeHppLib>/include)
 # target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
@@ -92,7 +77,6 @@ set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
 # target_link_libraries(${MAIN_EXECUTABLE_NAME} <SomeLib>)
 
 ###############################################################################
-
 # copy binaries to "bin" folder; these are uploaded as artifacts on each release
 # DESTINATION_DIR is set as "bin" in cmake/Options.cmake:6
 install(TARGETS ${MAIN_EXECUTABLE_NAME} DESTINATION ${DESTINATION_DIR})

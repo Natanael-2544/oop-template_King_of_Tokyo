@@ -1,4 +1,7 @@
 #include "Joc.h"
+#include "Monstru.h"
+#include "Carte.h"
+#include "Joc.h"
 
 
 int main(){

@@ -2,7 +2,7 @@
 // Created by Nati on 12/30/2025.
 //
 
-#include "../Include/Dragon.h"
+#include "Dragon.h"
 Dragon::Dragon(const std::string& n) : Monstru(n, 10) {}
 
 void Dragon::atac(Monstru* t) {
