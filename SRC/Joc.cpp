@@ -89,10 +89,8 @@ void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
         std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << inTokyo->getNume() << "\n";
         *inTokyo -= dauneActuale;
 
-
-        int opt=0;
         std::cout << inTokyo->getNume() << ", vrei sa iesi din Tokyo? 1=DA, 0=NU: ";
-        std::cin >> opt;
+        int opt; std::cin >> opt;
         if(opt==1){
             inTokyo->setInTokyo(false);
             tokyoOcupat = false;
@@ -107,10 +105,7 @@ void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
             std::cout << "Alege un jucator pe care sa il ataci:\n";
             for(size_t i=0;i<potentiali.size();i++)
                 std::cout << i+1 << ". " << potentiali[i]->getNume() << "\n";
-
-            int opt = 0;
-            Monstru* target = nullptr;
-            std::cin >> opt;
+            int opt; std::cin >> opt;
             if(opt >= 1 && opt <= (int)potentiali.size()) {
                 Monstru* target = potentiali[opt-1];
                 int dauneActuale = daune;
