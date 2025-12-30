@@ -20,7 +20,6 @@ class Joc {
 private:
     std::vector<Monstru*> jucatori;
     std::vector<Carte*> carti;
-    int maxViata = 14;
     size_t maxMonstri = 4;
     bool tokyoOcupat = false;
     int indexTokyo = -1;
