@@ -1,18 +1,18 @@
 # Joc de tip „King of Tokyo” – Descriere generală
 
 ## Obiectivul jocului
-Obiectivul jocului este să fii **primul jucător care atinge 5 puncte de victorie** sau să **rămâi ultimul monstru în viață** după eliminarea tuturor celorlalți jucători.
+Obiectivul jocului este să fii **primul jucător care atinge 8 puncte de victorie** sau să **rămâi ultimul monstru în viață** după eliminarea tuturor celorlalți jucători.
 
 ---
 
 ## Pregătirea jocului
 La începutul jocului:
 - Fiecare jucător își alege un monstru și își plasează figura și tabla de monstru în față.
-- Fiecare monstru începe cu **viață inițială** și **0 puncte de victorie**, conform caracteristicilor sale:
-    - **Mutant**: 12 puncte de viață și un bonus mic de atac
-    - **Dragon**: 10 puncte de viață și un bonus de energie
-    - **Robot**: 14 puncte de viață și reducere de daune
-    - **MegaMutant**: moștenește trăsături din Mutant, Dragon și Robot, dar începe cu doar 8 puncte de viață pentru echilibru
+- Fiecare monstru începe cu **viață inițială** si **0 puncte de victorie si 0 fulgere**, conform caracteristicilor sale:
+    - **Mutant**: 12 puncte de viață și adauga la fiecare numar de fulgere obtinute +1 Fulger;
+    - **Dragon**: 10 puncte de viață și adauga o viata la numarul de vieti primite;
+    - **Robot**: 14 puncte de viață și din numarul de gheare primite de la adversar i se reduce una din total;
+    - **MegaMutant**: moștenește trăsături din Mutant, Dragon și Robot, dar începe cu doar 9 puncte de viață pentru echilibru, plus ca la numarul de gheare primite, i se mai adauga una;
 - Tabla **Tokyo** este plasată în centru.
 - Cărțile de putere sunt puse pe cate un teanc de carti specifice.
 - Cuburile de energie sunt puse la dispoziția jucătorilor pentru a fi folosite pe parcursul jocului.
@@ -66,7 +66,7 @@ Apoi e obligat sa ii dea discard.
 La finalul turei, jucătorul poate cheltui cuburi de energie pentru a cumpăra cărți de putere. Există trei tipuri principale:
 
 - **PutereAtac** – aplică 2 puncte de daune unui monstru adversar. Costa 3 fulgere
-- **PutereVindecare** – adaugă 3 puncte de viață propriului monstru (nu poate fi folosită în Tokyo). Costa 5 fulgere
+- **PutereVindecare** – adaugă 2 puncte de viață propriului monstru (nu poate fi folosită în Tokyo). Costa 5 fulgere
 - **PutereEnergie** – adaugă 1 punct de victorie la finalul rundei. Costa 4 fulgere.
 
 Fiecare carte are un cost diferit în energie, în funcție de efectul său, și poate fi folosită o singura dată.
