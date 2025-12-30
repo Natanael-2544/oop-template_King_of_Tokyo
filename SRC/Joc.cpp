@@ -184,7 +184,7 @@ void Joc::aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt) {
 
 // Metoda privata: verifica cumparare carte
 void Joc::verificaCumparareCarte(Monstru* j){
-    if (j->getFulgere() < 4) return;
+    if (j==nullptr || j->getFulgere() < 4) return;
 
     std::vector<Carte*> oferte;
     oferte.push_back(new PutereAtac("PutereAtac", 4, 2));
@@ -192,10 +192,11 @@ void Joc::verificaCumparareCarte(Monstru* j){
     oferte.push_back(new PutereEnergie("PutereEnergie", 4, 1));
 
     std::vector<Carte*> oferteValide;
-    for(auto c : oferte)
-        if(j->getFulgere() >= c->getCost())
+    for(auto c : oferte) {
+        if(j->getFulgere() >= c->getCost()) {
             oferteValide.push_back(c);
-
+        }
+    }
     if(oferteValide.empty()){
         std::cout << "Nu ai suficiente fulgere pentru nicio carte.\n";
         for(auto oc: oferte) delete oc;
@@ -204,7 +205,11 @@ void Joc::verificaCumparareCarte(Monstru* j){
 
     std::cout << "Vrei sa cumperi o carte? 1=DA, 0=NU: ";
     int opt;
-    if (!(std::cin >> opt)) return;
+    if (!(std::cin >> opt)) {
+        for (auto oc : oferte) delete oc;
+        return;
+    }
+
     if(opt != 1){
         for(auto oc: oferte) delete oc;
         return;
@@ -236,7 +241,7 @@ void Joc::verificaCumparareCarte(Monstru* j){
     j->adaugaFulgere(-c->getCost());
 
     if(PutereAtac* pa = dynamic_cast<PutereAtac*>(c)){
-        if(tokyoOcupat && !j->getInTokyo()){
+        if(tokyoOcupat && !j->getInTokyo() && indexTokyo>=0){
             Monstru* target = jucatori[indexTokyo];
             pa->aplicare(target);
         } else if(j->getInTokyo()){
