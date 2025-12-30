@@ -215,8 +215,13 @@ void Joc::verificaCumparareCarte(Monstru* j){
                   << ": " << oferteValide[i]->getDescriere()
                   << ". Costa " << oferteValide[i]->getCost() << " fulgere\n";
 
-    int alegere;
+    int alegere=0;
     std::cin >> alegere;
+    if (!(std::cin >> alegere)) {
+        std::cin.clear();
+        for(auto oc: oferte) delete oc;
+        return;
+    }
 
     if(alegere < 1 || alegere > (int)oferteValide.size()){
         std::cout << "Alegere invalida!\n";
