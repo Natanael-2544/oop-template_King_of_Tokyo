@@ -63,14 +63,14 @@ bool Joc::JocTerminat() {
         if (m->getPuncteVictorie() >= 8) return true;
 
     int alive = 0;
-    for (auto m: jucatori)
+    for (Monstru* const m: jucatori)
         if (m->getViata() > 0) alive++;
 
     return alive <= 1;
 }
 
 // Metoda privata: aplica daune
-void Joc::aplicaDaune(Monstru* const atacator, int daune) {
+void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
     if (atacator->getInTokyo()) {
         for (Monstru* const m : jucatori) {
             if (m != atacator && m->getViata() > 0) {
