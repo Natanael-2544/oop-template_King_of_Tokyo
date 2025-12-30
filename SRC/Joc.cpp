@@ -29,7 +29,7 @@ Joc::Joc() {}
 
 // Destructor
 Joc::~Joc() {
-    for (auto m: jucatori) delete m;
+    for ( auto m: jucatori) delete m;
     jucatori.clear();
     for (auto c: carti) delete c;
     carti.clear();
@@ -59,11 +59,11 @@ void Joc::afisareJucatori() {
 }
 
 bool Joc::JocTerminat() {
-    for (Monstru* const m: jucatori)
+    for (const Monstru*  m: jucatori)
         if (m->getPuncteVictorie() >= 8) return true;
 
     int alive = 0;
-    for (Monstru* const m: jucatori)
+    for (const Monstru* m: jucatori)
         if (m->getViata() > 0) alive++;
 
     return alive <= 1;
@@ -72,7 +72,7 @@ bool Joc::JocTerminat() {
 // Metoda privata: aplica daune
 void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
     if (atacator->getInTokyo()) {
-        for (Monstru* const m : jucatori) {
+        for ( Monstru* const  m : jucatori) {
             if (m != atacator && m->getViata() > 0) {
                 int dauneActuale = daune;
                 if(dynamic_cast<Robot*>(m)) {dauneActuale = std::max(0, dauneActuale-1);}
