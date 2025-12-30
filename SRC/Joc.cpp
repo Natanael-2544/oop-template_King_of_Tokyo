@@ -203,7 +203,8 @@ void Joc::verificaCumparareCarte(Monstru* j){
     }
 
     std::cout << "Vrei sa cumperi o carte? 1=DA, 0=NU: ";
-    int opt; std::cin >> opt;
+    int opt;
+    if (!(std::cin >> opt)) return;
     if(opt != 1){
         for(auto oc: oferte) delete oc;
         return;
@@ -216,7 +217,6 @@ void Joc::verificaCumparareCarte(Monstru* j){
                   << ". Costa " << oferteValide[i]->getCost() << " fulgere\n";
 
     int alegere=0;
-    std::cin >> alegere;
     if (!(std::cin >> alegere)) {
         std::cin.clear();
         for(auto oc: oferte) delete oc;
