@@ -59,7 +59,7 @@ void Joc::afisareJucatori() {
 }
 
 bool Joc::JocTerminat() {
-    for (auto m: jucatori)
+    for (Monstru* const m: jucatori)
         if (m->getPuncteVictorie() >= 8) return true;
 
     int alive = 0;
