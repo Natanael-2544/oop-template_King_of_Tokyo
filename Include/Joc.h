@@ -32,7 +32,7 @@ private:
     Joc(const Joc&) = delete;
     Joc& operator=(const Joc&) = delete;
 
-    void aplicaDaune(Monstru* atacator, int daune);
+    void aplicaDaune(Monstru* const atacator, int daune);
     void intraInTokyo(Monstru* j);
     void acordaPVLaFinalRunda();
     void aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt);

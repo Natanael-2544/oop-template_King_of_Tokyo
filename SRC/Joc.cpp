@@ -70,7 +70,7 @@ bool Joc::JocTerminat() {
 }
 
 // Metoda privata: aplica daune
-void Joc::aplicaDaune(Monstru* atacator, int daune) {
+void Joc::aplicaDaune(Monstru* const atacator, int daune) {
     if (atacator->getInTokyo()) {
         for (auto m : jucatori) {
             if (m != atacator && m->getViata() > 0) {

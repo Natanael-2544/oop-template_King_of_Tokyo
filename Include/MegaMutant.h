@@ -11,7 +11,7 @@
 
 class MegaMutant : public Mutant, public Dragon, public Robot {
 public:
-    MegaMutant(const std::string& n);
+    explicit MegaMutant(const std::string& n);
 
     void atac(Monstru* t) override;
     void vindecare() override;

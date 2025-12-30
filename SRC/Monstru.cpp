@@ -42,7 +42,7 @@ Monstru& Monstru::operator-=(int dmg) {
 }
 
 // Getters / setters
-std::string Monstru::getNume() const { return nume; }
+const std::string& Monstru::getNume()  const { return nume; }
 int Monstru::getViata() const { return viata; }
 int Monstru::getPuncteVictorie() const { return puncteVictorie; }
 int Monstru::getFulgere() const { return fulgere; }

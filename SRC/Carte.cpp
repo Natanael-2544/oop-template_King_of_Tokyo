@@ -9,6 +9,6 @@ Carte::Carte(const std::string& nume_, int cost_, int valoare_)
 
 Carte::~Carte() = default;
 
-std::string Carte::getNume() const { return nume; }
+const std::string& Carte::getNume() const { return nume; }
 int Carte::getCost() const { return cost; }
 int Carte::getValoare() const { return valoare; }

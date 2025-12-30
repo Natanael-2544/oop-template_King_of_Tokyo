@@ -32,7 +32,7 @@ public:
     virtual void vindecare() = 0;
     virtual void folosestePutere() = 0;
 
-    std::string getNume() const;
+    const std::string& getNume() const;
     int getViata() const;
     int getPuncteVictorie() const;
     int getFulgere() const;

@@ -21,7 +21,7 @@ public:
     virtual void aplicare(Monstru* m) = 0;
     virtual std::string getDescriere() const = 0;
 
-    std::string getNume() const;
+    const std::string& getNume() const;
     int getCost() const;
     int getValoare() const;
 };
