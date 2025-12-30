@@ -48,8 +48,32 @@ include(cmake/CopyHelper.cmake)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
+include_directories(Include)
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
+        SRC/Monstru.cpp
+        Include/Monstru.h
+        SRC/Mutant.cpp
+        Include/Mutant.h
+        SRC/Dragon.cpp
+        Include/Dragon.h
+        SRC/Robot.cpp
+        Include/Robot.h
+        SRC/MegaMutant.cpp
+        Include/MegaMutant.h
+        Include/MonstruFactory.h
+        SRC/Carte.cpp
+        Include/Carte.h
+        SRC/PutereAtac.cpp
+        Include/PutereAtac.h
+        SRC/PutereVindecare.cpp
+        Include/PutereVindecare.h
+        SRC/PutereEnergie.cpp
+        Include/PutereEnergie.h
+        Include/ContainerZaruri.h
+        SRC/Joc.cpp
+        Include/Joc.h
+        Include/SimbolZar.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

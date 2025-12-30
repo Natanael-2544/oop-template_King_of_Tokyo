@@ -1,0 +1,13 @@
+//
+// Created by Nati on 12/30/2025.
+//
+
+#include "../Include/Carte.h"
+Carte::Carte(const std::string& nume_, int cost_, int valoare_)
+    : nume(nume_), cost(cost_), valoare(valoare_) {}
+
+Carte::~Carte() = default;
+
+std::string Carte::getNume() const { return nume; }
+int Carte::getCost() const { return cost; }
+int Carte::getValoare() const { return valoare; }
