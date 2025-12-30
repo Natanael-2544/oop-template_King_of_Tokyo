@@ -6,6 +6,7 @@
 Dragon::Dragon(const std::string& n) : Monstru(n, 10) {}
 
 void Dragon::atac(Monstru* t) {
+    if (!t) return;
     *t -= 2;
     *this += 1;
 }

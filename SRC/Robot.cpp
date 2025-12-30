@@ -7,6 +7,7 @@
 Robot::Robot(const std::string& n) : Monstru(n, 14) {}
 
 void Robot::atac(Monstru* t) {
+    if (!t) return;
     *t -= 1;
     *this += 1;
 }

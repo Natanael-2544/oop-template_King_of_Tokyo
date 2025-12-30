@@ -7,6 +7,7 @@
 Mutant::Mutant(const std::string& n) : Monstru(n, 12) {}
 
 void Mutant::atac(Monstru* t) {
+    if (!t) return;
     *t -= 1;
     *this += 1;
 }
