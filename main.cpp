@@ -248,7 +248,6 @@ private:
                 tokyoOcupat = true;
                 indexTokyo = std::distance(jucatori.begin(), std::find(jucatori.begin(), jucatori.end(), j));
                 j->setInTokyo(true);
-                *j += 1; // punct pentru intrare în Tokyo
                 std::cout << j->getNume() << " a intrat in Tokyo!\n";
             }
         }
@@ -273,11 +272,13 @@ private:
                 j->adaugaFulgere(count * p);
             }
         } else {
-            // Dacă e în Tokyo, simbolurile 1,2,3 nu îi mai dau PV
+            // Dacă e în Tokyo, simbolurile 1,2,3, dau doar fulgere
             for(int p=1;p<=3;p++){
                 SimbolZar s = static_cast<SimbolZar>(p-1);
                 int count = cnt[s];
-                j->adaugaFulgere(count * p);
+                if(count > 0){
+                    j->adaugaFulgere(count * p);
+                }
             }
         }
 
@@ -298,7 +299,7 @@ private:
                 tokyoOcupat = true;
                 indexTokyo = std::distance(jucatori.begin(), std::find(jucatori.begin(), jucatori.end(), j));
                 j->setInTokyo(true);
-                *j += 1; // punct pentru intrarea în Tokyo
+
                 std::cout << j->getNume() << " a intrat in Tokyo!\n";
             }
         }
