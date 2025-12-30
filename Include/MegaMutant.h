@@ -12,9 +12,9 @@
 class MegaMutant : public Mutant, public Dragon, public Robot {
 public:
     explicit MegaMutant(const std::string& n);
-    void atac(Monstru* t) override;
+    void atac(Monstru* t) ;
     void vindecare() override;
-    void folosestePutere() override;
+    void folosestePutere() ;
 };
 
 #endif //OOP_MEGAMUTANT_H
