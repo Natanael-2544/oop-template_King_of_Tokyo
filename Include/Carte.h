@@ -23,7 +23,7 @@ public:
 
     const std::string& getNume() const;
     int getCost() const;
-    int getValoare() const;
+
 };
 
 

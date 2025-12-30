@@ -20,6 +20,7 @@ Monstru::~Monstru() = default;
 // Operator=
 Monstru& Monstru::operator=(const Monstru& m) {
     if (this != &m) {
+        id = m.id;
         nume = m.nume;
         viata = m.viata;
         puncteVictorie = m.puncteVictorie;

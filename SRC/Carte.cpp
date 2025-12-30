@@ -11,4 +11,3 @@ Carte::~Carte() = default;
 
 const std::string& Carte::getNume() const { return nume; }
 int Carte::getCost() const { return cost; }
-int Carte::getValoare() const { return valoare; }

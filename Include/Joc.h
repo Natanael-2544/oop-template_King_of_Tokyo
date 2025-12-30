@@ -34,7 +34,6 @@ private:
 
     void aplicaDaune(Monstru* const atacator, int daune);
     void intraInTokyo(Monstru* j);
-    void acordaPVLaFinalRunda();
     void aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt);
     void verificaCumparareCarte(Monstru* j);
 

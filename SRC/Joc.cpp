@@ -72,11 +72,11 @@ bool Joc::JocTerminat() {
 // Metoda privata: aplica daune
 void Joc::aplicaDaune(Monstru* const atacator, int daune) {
     if (atacator->getInTokyo()) {
-        for (auto m : jucatori) {
+        for (Monstru* const m : jucatori) {
             if (m != atacator && m->getViata() > 0) {
                 int dauneActuale = daune;
-                if(Robot* r = dynamic_cast<Robot*>(m)) dauneActuale = std::max(0, dauneActuale-1);
-                if(MegaMutant* mm = dynamic_cast<MegaMutant*>(m)) dauneActuale += 2;
+                if(dynamic_cast<Robot*>(m)) {dauneActuale = std::max(0, dauneActuale-1);}
+                if(dynamic_cast<MegaMutant*>(m)) {dauneActuale += 2;}
                 std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << m->getNume() << "\n";
                 *m -= dauneActuale;
             }
@@ -84,8 +84,8 @@ void Joc::aplicaDaune(Monstru* const atacator, int daune) {
     } else if(tokyoOcupat) {
         Monstru* inTokyo = jucatori[indexTokyo];
         int dauneActuale = daune;
-        if(Robot* r = dynamic_cast<Robot*>(inTokyo)) dauneActuale = std::max(0, dauneActuale-1);
-        if(MegaMutant* mm = dynamic_cast<MegaMutant*>(inTokyo)) dauneActuale += 1;
+        if(dynamic_cast<Robot*>(inTokyo)) {dauneActuale = std::max(0, dauneActuale-1);}
+        if(dynamic_cast<MegaMutant*>(inTokyo)) {dauneActuale += 1;}
         std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << inTokyo->getNume() << "\n";
         *inTokyo -= dauneActuale;
 
@@ -109,8 +109,8 @@ void Joc::aplicaDaune(Monstru* const atacator, int daune) {
             if(opt >= 1 && opt <= (int)potentiali.size()) {
                 Monstru* target = potentiali[opt-1];
                 int dauneActuale = daune;
-                if(Robot* r = dynamic_cast<Robot*>(target)) dauneActuale = std::max(0, dauneActuale-1);
-                if(MegaMutant* mm = dynamic_cast<MegaMutant*>(target)) dauneActuale += 1;
+                if(dynamic_cast<Robot*>(target)) {dauneActuale = std::max(0, dauneActuale-1);}
+                if( dynamic_cast<MegaMutant*>(target)) {dauneActuale += 1;}
 
                 *target -= dauneActuale;
                 std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << target->getNume() << "\n";
@@ -133,14 +133,6 @@ void Joc::intraInTokyo(Monstru* j) {
     }
 }
 
-// Metoda privata: acorda PV la finalul rundei
-void Joc::acordaPVLaFinalRunda() {
-    for(auto j: jucatori){
-        if(j->getViata() <= 0) continue;
-        if(j->getInTokyo()) *j += 2;
-        else *j += 1;
-    }
-}
 
 // Metoda privata: aplica simboluri de zar
 void Joc::aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt) {
@@ -165,14 +157,14 @@ void Joc::aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt) {
 
     if(cnt[SimbolZar::Fulger] > 0){
         int bonus = 0;
-        if(Mutant* m = dynamic_cast<Mutant*>(j)) bonus += cnt[SimbolZar::Fulger];
+        if( dynamic_cast<Mutant*>(j)) {bonus += cnt[SimbolZar::Fulger];}
         j->adaugaFulgere(cnt[SimbolZar::Fulger] + bonus);
         std::cout << j->getNume() << " castiga " << (cnt[SimbolZar::Fulger] + bonus) << " fulgere *\n";
     }
 
     if(!j->getInTokyo() && cnt[SimbolZar::Inima] > 0){
         int heal = 1;
-        if(Dragon* d = dynamic_cast<Dragon*>(j)) heal += 1;
+        if( dynamic_cast<Dragon*>(j)) {heal += 1;}
         for(int i=0;i<heal;i++) j->vindecare();
         std::cout << j->getNume() << " s-a vindecat\n";
         std::cout << *j << "\n";
@@ -322,7 +314,7 @@ void Joc::runda() {
 }
 
 void Joc::afisareClasament() {
-    std::sort(jucatori.begin(), jucatori.end(), [](Monstru* a, Monstru* b){ return a->getPuncteVictorie() > b->getPuncteVictorie(); });
+    std::sort(jucatori.begin(), jucatori.end(), [](const Monstru* a, const Monstru* b){ return a->getPuncteVictorie() > b->getPuncteVictorie(); });
     std::cout << "\n=== Clasament final ===\n";
     for(size_t i=0;i<jucatori.size();i++)
         std::cout << i+1 << ". " << *jucatori[i] << "\n";
