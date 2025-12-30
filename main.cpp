@@ -198,10 +198,10 @@ private:
     }
     Joc(const Joc&) = delete; //blocare copiere
     Joc& operator=(const Joc&) = delete;  // blocare asignare
-    // Aplică daune în funcție de cine e în Tokyo
+    // Aplica daune in functie de cine e in Tokyo
     void aplicaDaune(Monstru* atacator, int daune){
         if(atacator->getInTokyo()){
-            // atac automat: toți ceilalți jucători
+            // atac automat: toti ceilalti jucatori
             for(auto m : jucatori){
                 if(m != atacator && m->getViata() > 0){
                     std::cout << atacator->getNume() << " aplica " << daune << " daune catre " << m->getNume() << "\n";
@@ -209,12 +209,12 @@ private:
                 }
             }
         } else if(tokyoOcupat){
-            // atac către cel din Tokyo
+            // atac catre cel din Tokyo
             Monstru* inTokyo = jucatori[indexTokyo];
             std::cout << atacator->getNume() << " aplica " << daune << " daune catre " << inTokyo->getNume() << "\n";
             *inTokyo -= daune;
 
-            // Întreabă dacă vrea să iasă din Tokyo
+            // intreaba daca vrea sa iasa din Tokyo
             std::cout << inTokyo->getNume() << ", vrei sa iesi din Tokyo? 1=DA, 0=NU: ";
             int opt; std::cin >> opt;
             if(opt==1){
@@ -223,7 +223,7 @@ private:
                 indexTokyo = -1;
             }
         } else {
-            // atac clasic: alegeți pe cine să atace
+            // atac clasic: alegeti pe cine sa atace
             std::vector<Monstru*> potentiali;
             for(auto m : jucatori){
                 if(m != atacator && m->getViata() > 0) potentiali.push_back(m);
@@ -239,7 +239,7 @@ private:
             }
         }
     }
-    // Gestionează intrarea în Tokyo
+    // Gestioneaza intrarea in Tokyo
     void intraInTokyo(Monstru* j){
         if(!tokyoOcupat){
             std::cout << j->getNume() << ", vrei sa intri in Tokyo? 1=DA,0=NU: ";
@@ -257,50 +257,50 @@ private:
             Monstru* j=jucatori[i];
             if(j->getViata()<=0) continue;
             if(j->getInTokyo()) *j += 2; // 2 PV pentru cel din Tokyo
-            else *j += 1; // 1 PV pentru ceilalți
+            else *j += 1; // 1 PV pentru ceilalti
         }
     }
     void aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt){
-        if(!j->getInTokyo()){
-            for(int p=1;p<=3;p++){
-                SimbolZar s = static_cast<SimbolZar>(p-1);
-                int count = cnt[s];
-                if(count >= 3){
-                    *j += p + (count - 3); // PV pentru triplete + supliment
-                    count -= 3;
-                }
-                j->adaugaFulgere(count * p);
+        for(int p=1;p<=3;p++) {
+            SimbolZar s = static_cast<SimbolZar>(p-1);
+            int count = cnt[s];
+
+            while(count >= 3){
+                *j += p; // PV pentru triplet
+                count -= 3;
+                std::cout << j->getNume() << " a castigat " << p << " PV pentru triplet!\n";
+                std::cout << *j << "\n";
             }
-        } else {
-            // Dacă e în Tokyo, simbolurile 1,2,3, dau doar fulgere
-            for(int p=1;p<=3;p++){
-                SimbolZar s = static_cast<SimbolZar>(p-1);
-                int count = cnt[s];
-                if(count > 0){
-                    j->adaugaFulgere(count * p);
-                }
+
+            // Dublete → fulgere
+            if(count == 2){
+                j->adaugaFulgere(p);
+                std::cout << j->getNume() << " a castigat " << p << " fulgere pentru dublet!\n";
+                std::cout << *j << "\n";
             }
         }
 
-        if(cnt[SimbolZar::Energie]) {
+        if(cnt[SimbolZar::Energie]>0) {
             j->adaugaFulgere(cnt[SimbolZar::Energie]);
             std::cout << j->getNume() << " castiga " << cnt[SimbolZar::Energie] << " cuburi energie *\n";
         }
 
-        if(!j->getInTokyo() && cnt[SimbolZar::Inima]){
+        if(!j->getInTokyo() && cnt[SimbolZar::Inima]>0){
             j->vindecare();
             std::cout << j->getNume() << " s-a vindecat\n";
+            std::cout << *j << "\n";
         }
 
-        if(cnt[SimbolZar::Gheara]){
+        if(cnt[SimbolZar::Gheara]>0){
             aplicaDaune(j, cnt[SimbolZar::Gheara]);
-            // dacă jucătorul nu e în Tokyo și Tokyo nu e ocupat, intră automat
+            // daca jucatorul nu e in Tokyo si Tokyo nu e ocupat, intra automat
             if(!j->getInTokyo() && !tokyoOcupat){
                 tokyoOcupat = true;
                 indexTokyo = std::distance(jucatori.begin(), std::find(jucatori.begin(), jucatori.end(), j));
                 j->setInTokyo(true);
 
                 std::cout << j->getNume() << " a intrat in Tokyo!\n";
+                std::cout << *j << "\n";
             }
         }
     }
@@ -345,9 +345,9 @@ public:
                 candidati = ceiMaiBuni;
                 egalitate = true;
             } else {
-                // Mutăm câștigătorul pe primul loc în vectorul jucători
+                // Mutam castigatorul pe primul loc in vectorul jucatori
                 std::swap(jucatori[0], jucatori[ceiMaiBuni[0]]);
-                std::cout << jucatori[0]->getNume() << " începe jocul!\n";
+                std::cout << jucatori[0]->getNume() << " incepe jocul!\n";
             }
         }
     }
@@ -397,14 +397,14 @@ public:
             }
         }
 
-        // La finalul rundei, acordă puncte de victorie
+        // La finalul rundei, acorda puncte de victorie
         for(auto m : jucatori){
             if(m->getViata() <= 0) continue;
 
             if(m->getInTokyo()){
-                *m += 2;  // jucătorul din Tokyo primește 2 PV
+                *m += 2;  // jucatorul din Tokyo primeste 2 PV
             } else {
-                *m += 1;  // ceilalți jucători primesc 1 PV
+                *m += 1;  // ceilalti jucatori primesc 1 PV
             }
         }
     }
@@ -428,7 +428,7 @@ int main(){
         std::cout<<"Numar jucatori (2-4): "; std::cin>>n;
     }while(n<2 || n>4);
 
-    // Alegere monștri
+    // Alegere monstri
     for(int i=0;i<n;i++){
         std::cout<<"Jucator "<<i+1<<": Alege monstru:\n1. Mutant\n2. Dragon\n3. Robot\n4. MegaMutant\nOptiune: ";
         int t; std::cin>>t; std::string nume;
