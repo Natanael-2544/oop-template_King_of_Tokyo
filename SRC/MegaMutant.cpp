@@ -15,6 +15,14 @@ void MegaMutant::vindecare() {
 }
 void MegaMutant::folosestePutere() {}
 
+int MegaMutant::bonusFulgere() const {
+    return Mutant::bonusFulgere();
+}
+
+int MegaMutant::bonusVindecare() const {
+    return Dragon::bonusVindecare();
+}
+
 int MegaMutant::modificaDaune(int daune) const {
-    return std::max(0, daune - 1 + 2);
+    return Robot::modificaDaune(daune) + 2;
 }
