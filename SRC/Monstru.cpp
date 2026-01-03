@@ -41,6 +41,9 @@ Monstru& Monstru::operator-=(int dmg) {
     if (viata < 0) viata = 0;
     return *this;
 }
+ int Monstru::bonusFulgere() const { return 0; }
+ int Monstru::bonusVindecare() const { return 0; }
+ int Monstru::modificaDaune(int daune) const { return daune; }
 
 // Getters / setters
 const std::string& Monstru::getNume()  const { return nume; }

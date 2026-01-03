@@ -14,3 +14,7 @@ void MegaMutant::vindecare() {
     if (viata > 9) viata = 9;
 }
 void MegaMutant::folosestePutere() {}
+
+int MegaMutant::modificaDaune(int daune) const {
+    return std::max(0, daune - 1 + 2);
+}

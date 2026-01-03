@@ -19,3 +19,7 @@ void Dragon::vindecare() {
 void Dragon::folosestePutere() {
     *this += 3;
 }
+
+int Dragon::bonusVindecare() const {
+    return 1;
+}

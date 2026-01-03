@@ -14,7 +14,8 @@ public:
     void atac(Monstru* t) override;
     void vindecare() override;
     void folosestePutere() override;
-};
+    int bonusFulgere() const override;
 
+};
 
 #endif //OOP_MUTANT_H

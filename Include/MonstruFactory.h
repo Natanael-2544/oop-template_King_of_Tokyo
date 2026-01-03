@@ -15,14 +15,17 @@
 
 class MonstruFactory {
 public:
-    static Monstru* creeazaMonstru(int tip, const std::string& nume) {
-        switch (tip) {
-            case 1: return new Mutant(nume);
-            case 2: return new Dragon(nume);
-            case 3: return new Robot(nume);
-            case 4: return new MegaMutant(nume);
-            default: throw std::runtime_error("Tip monstru invalid");
-        }
+    static Monstru* mutant(const std::string& n) {
+        return new Mutant(n);
+    }
+    static Monstru* dragon(const std::string& n) {
+        return new Dragon(n);
+    }
+    static Monstru* robot(const std::string& n) {
+        return new Robot(n);
+    }
+    static Monstru* megaMutant(const std::string& n) {
+        return new MegaMutant(n);
     }
 };
 

@@ -40,6 +40,10 @@ public:
     bool getInTokyo() const;
     void setInTokyo( bool val);
 
+    virtual int modificaDaune(int daune) const;
+    virtual int bonusFulgere() const;
+    virtual int bonusVindecare() const;
+
     friend std::ostream& operator<<(std::ostream& out, const Monstru& m);
 };
 

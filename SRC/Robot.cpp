@@ -20,3 +20,7 @@ void Robot::vindecare() {
 void Robot::folosestePutere() {
     *this += 2;
 }
+
+int Robot::modificaDaune(int daune) const {
+    return std::max(0, daune - 1);
+}

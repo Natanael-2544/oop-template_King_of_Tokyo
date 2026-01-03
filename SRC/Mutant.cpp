@@ -20,3 +20,6 @@ void Mutant::vindecare() {
 void Mutant::folosestePutere() {
     *this += 2;
 }
+int Mutant::bonusFulgere() const {
+    return 1;
+}

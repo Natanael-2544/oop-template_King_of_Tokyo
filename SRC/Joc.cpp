@@ -79,21 +79,16 @@ void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
     if (atacator->getInTokyo()) {
         for ( Monstru* const  m : jucatori) {
             if (m != atacator && m->getViata() > 0) {
-                int dauneActuale = daune;
-                if(dynamic_cast<Robot*>(m)) {dauneActuale = std::max(0, dauneActuale-1);}
-                if(dynamic_cast<MegaMutant*>(m)) {dauneActuale += 2;}
+                int dauneActuale = m->modificaDaune(daune);
                 std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << m->getNume() << "\n";
                 *m -= dauneActuale;
             }
         }
     } else if(tokyoOcupat) {
         Monstru* inTokyo = jucatori[indexTokyo];
-        int dauneActuale = daune;
-        if(dynamic_cast<Robot*>(inTokyo)) {dauneActuale = std::max(0, dauneActuale-1);}
-        if(dynamic_cast<MegaMutant*>(inTokyo)) {dauneActuale += 1;}
+        int dauneActuale = inTokyo->modificaDaune(daune);
         std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << inTokyo->getNume() << "\n";
         *inTokyo -= dauneActuale;
-
         std::cout << inTokyo->getNume() << ", vrei sa iesi din Tokyo? 1=DA, 0=NU: ";
         int opt; std::cin >> opt;
         if(opt==1){
@@ -113,10 +108,7 @@ void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
             int opt; std::cin >> opt;
             if(opt >= 1 && opt <= (int)potentiali.size()) {
                 Monstru* target = potentiali[opt-1];
-                int dauneActuale = daune;
-                if(dynamic_cast<Robot*>(target)) {dauneActuale = std::max(0, dauneActuale-1);}
-                if( dynamic_cast<MegaMutant*>(target)) {dauneActuale += 1;}
-
+                int dauneActuale = target->modificaDaune(daune);
                 *target -= dauneActuale;
                 std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << target->getNume() << "\n";
             }
@@ -161,15 +153,14 @@ void Joc::aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt) {
     }
 
     if(cnt[SimbolZar::Fulger] > 0){
-        int bonus = 0;
-        if( dynamic_cast<Mutant*>(j)) {bonus += cnt[SimbolZar::Fulger];}
-        j->adaugaFulgere(cnt[SimbolZar::Fulger] + bonus);
+        int bonus = j->bonusFulgere();
+        int totalFulgere = cnt[SimbolZar::Fulger] + bonus;
+        j->adaugaFulgere(totalFulgere);
         std::cout << j->getNume() << " castiga " << (cnt[SimbolZar::Fulger] + bonus) << " fulgere *\n";
     }
 
     if(!j->getInTokyo() && cnt[SimbolZar::Inima] > 0){
-        int heal = 1;
-        if( dynamic_cast<Dragon*>(j)) {heal += 1;}
+        int heal = 1 + j->bonusVindecare();
         for(int i=0;i<heal;i++) j->vindecare();
         std::cout << j->getNume() << " s-a vindecat\n";
         std::cout << *j << "\n";
@@ -347,7 +338,14 @@ void Joc::setupJoc() {
         int t; std::cin >> t;
         std::string nume;
         std::cout << "Nume jucator: "; std::cin >> nume;
-        Monstru* m = MonstruFactory::creeazaMonstru(t, nume);
+        Monstru* m = nullptr;
+        switch(t) {
+            case 1: m = MonstruFactory::mutant(nume); break;
+            case 2: m = MonstruFactory::dragon(nume); break;
+            case 3: m = MonstruFactory::robot(nume); break;
+            case 4: m = MonstruFactory::megaMutant(nume); break;
+            default: throw std::runtime_error("Tip monstru invalid");
+        }
         adaugaJucatori(m);
     }
 

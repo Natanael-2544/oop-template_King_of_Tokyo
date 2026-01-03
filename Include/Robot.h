@@ -14,6 +14,7 @@ public:
     void atac(Monstru* t) override;
     void vindecare() override;
     void folosestePutere() override;
+    int modificaDaune(int daune) const override;
 };
 
 

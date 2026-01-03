@@ -15,6 +15,7 @@ public:
     [[maybe_unused]] void atac(Monstru* t) override;
     void vindecare() override;
     [[maybe_unused]] void folosestePutere() override;
+    int modificaDaune(int daune) const override;
 
 };
 
