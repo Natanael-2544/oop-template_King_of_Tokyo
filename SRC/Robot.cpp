@@ -22,5 +22,5 @@ void Robot::folosestePutere() {
 }
 
 int Robot::modificaDaune(int daune) const {
-    return std::max(0, daune - 1);
+    return daune - 1;
 }

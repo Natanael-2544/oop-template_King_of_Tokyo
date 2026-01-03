@@ -16,7 +16,7 @@ void MegaMutant::vindecare() {
 void MegaMutant::folosestePutere() {}
 
 int MegaMutant::bonusFulgere() const {
-    return Mutant::bonusFulgere();
+    return 1;
 }
 
 int MegaMutant::bonusVindecare() const {
