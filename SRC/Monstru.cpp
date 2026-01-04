@@ -11,7 +11,7 @@ Monstru::Monstru(const std::string& nume_, const int& viata_)
     : nume(nume_), viata(viata_), viataMaxima(viata_),puncteVictorie(0), fulgere(0), inTokyo(false), id(++idGenerator) {}
 
 Monstru::Monstru(const Monstru& m)
-    : nume(m.nume), viata(m.viata), puncteVictorie(m.puncteVictorie),
+    : nume(m.nume), viata(m.viata), viataMaxima(m.viataMaxima),puncteVictorie(m.puncteVictorie),
       fulgere(m.fulgere), inTokyo(m.inTokyo), id(idGenerator++) {}
 
 // Destructor
@@ -23,6 +23,7 @@ Monstru& Monstru::operator=(const Monstru& m) {
         id = m.id;
         nume = m.nume;
         viata = m.viata;
+        viataMaxima = m.viataMaxima;
         puncteVictorie = m.puncteVictorie;
         fulgere = m.fulgere;
         inTokyo = m.inTokyo;
