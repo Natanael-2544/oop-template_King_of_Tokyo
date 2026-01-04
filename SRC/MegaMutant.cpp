@@ -5,10 +5,10 @@
 #include "MegaMutant.h"
 
 MegaMutant::MegaMutant(const std::string& n)
-    : Monstru(n, 9), Mutant(n), Dragon(n), Robot(n) {}
+    : Monstru(n, 9), Mutant(), Dragon(), Robot() {}
 
 MegaMutant::MegaMutant(const MegaMutant& m)
-    : Monstru(m), Mutant(m), Dragon(m), Robot(m) {}
+    : Monstru(m), Mutant(), Dragon(), Robot() {}
 
 MegaMutant& MegaMutant::operator=(const MegaMutant& m) {
     if (this != &m) {

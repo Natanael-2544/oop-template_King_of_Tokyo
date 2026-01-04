@@ -9,6 +9,7 @@
 
 class Robot : virtual public Monstru {
 public:
+    Robot() : Monstru("", 0) {}
     explicit Robot(const std::string& n);
 
     void atac(Monstru* t) override;
