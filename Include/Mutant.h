@@ -9,7 +9,6 @@
 
 class Mutant : virtual public Monstru {
 public:
-    Mutant() : Monstru("", 0) {}
     explicit Mutant(const std::string& n);
 
     void atac(Monstru* t) override;
