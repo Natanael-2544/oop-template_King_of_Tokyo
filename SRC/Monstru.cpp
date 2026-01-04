@@ -57,6 +57,12 @@ void Monstru::setInTokyo(bool val) { inTokyo = val; }
 int Monstru::getViataMaxima() const { return viataMaxima; }
 void Monstru::setViata(int v) { viata = v; }
 
+// Operator pt citire:
+std::istream& operator>>(std::istream& in, Monstru& m) {
+    std::cout << "Nume monstru: ";
+    in >> m.nume;
+    return in;
+}
 // Operator << pentru afisare
 std::ostream& operator<<(std::ostream& out, const Monstru& m) {
     out << m.nume << " (Viata: " << m.viata

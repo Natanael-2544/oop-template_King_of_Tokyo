@@ -335,17 +335,17 @@ void Joc::setupJoc() {
 
     for (int i = 0; i < n; i++) {
         std::cout << "Jucator " << i + 1 << ": Alege monstru:\n1. Mutant\n2. Dragon\n3. Robot\n4. MegaMutant\nOptiune: ";
-        int t; std::cin >> t;
-        std::string nume;
-        std::cout << "Nume jucator: "; std::cin >> nume;
+        int t;
+        std::cin >> t;
         Monstru* m = nullptr;
         switch(t) {
-            case 1: m = MonstruFactory::mutant(nume); break;
-            case 2: m = MonstruFactory::dragon(nume); break;
-            case 3: m = MonstruFactory::robot(nume); break;
-            case 4: m = MonstruFactory::megaMutant(nume); break;
+            case 1: m = MonstruFactory::mutant(""); break;
+            case 2: m = MonstruFactory::dragon(""); break;
+            case 3: m = MonstruFactory::robot(""); break;
+            case 4: m = MonstruFactory::megaMutant(""); break;
             default: throw std::runtime_error("Tip monstru invalid");
         }
+        std::cin >> *m;
         adaugaJucatori(m);
     }
 

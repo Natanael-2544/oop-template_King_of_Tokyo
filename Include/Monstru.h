@@ -47,6 +47,7 @@ public:
     virtual int bonusFulgere() const;
     virtual int bonusVindecare() const;
 
+    friend std::istream& operator>>(std::istream& in, Monstru& m);
     friend std::ostream& operator<<(std::ostream& out, const Monstru& m);
 };
 

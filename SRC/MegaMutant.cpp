@@ -7,6 +7,19 @@
 MegaMutant::MegaMutant(const std::string& n)
     : Monstru(n, 9), Mutant(n), Dragon(n), Robot(n) {}
 
+MegaMutant::MegaMutant(const MegaMutant& m)
+    : Monstru(m), Mutant(m), Dragon(m), Robot(m) {}
+
+MegaMutant& MegaMutant::operator=(const MegaMutant& m) {
+    if (this != &m) {
+        Monstru::operator=(m);
+        Mutant::operator=(m);
+        Dragon::operator=(m);
+        Robot::operator=(m);
+    }
+    return *this;
+}
+
  void MegaMutant::atac(Monstru* /*t*/) {}
 
 void MegaMutant::vindecare() {
