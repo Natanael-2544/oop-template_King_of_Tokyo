@@ -294,7 +294,7 @@ void Joc::runda() {
         Monstru* j = jucatori[i];
         if(j->getViata() <= 0) continue;
 
-        std::cout << "\nTura lui " << j->getNume() << " (" << j->getViata() << " viata, " << j->getPuncteVictorie() << " PV)\n";
+        std::cout << "\nTura lui " << *j << "\n";
 
         ContainerZaruri<std::vector<SimbolZar>> zar;
         zar.aruncaZar();

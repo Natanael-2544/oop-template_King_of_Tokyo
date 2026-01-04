@@ -8,8 +8,13 @@ PutereVindecare::PutereVindecare(const std::string& nume_, int cost_, int valoar
     : Carte(nume_, cost_, valoare_) {}
 
 void PutereVindecare::aplicare(Monstru* m) {
-    if (!m->getInTokyo())
-        *m += valoare;
+    if (!m || m->getInTokyo()) return; // nu se poate folosi în Tokyo
+
+    int viataNoua = m->getViata() + valoare; // valoare = 2
+    if (viataNoua > m->getViataMaxima())
+        viataNoua = m->getViataMaxima();
+
+    m->setViata(viataNoua);
 }
 
 std::string PutereVindecare::getDescriere() const {

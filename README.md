@@ -65,7 +65,7 @@ Apoi e obligat sa ii dea discard.
 ## Cărți de putere
 La finalul turei, jucătorul poate cheltui cuburi de energie pentru a cumpăra cărți de putere. Există trei tipuri principale:
 
-- **PutereAtac** – aplică 2 puncte de daune unui monstru adversar. Costa 3 fulgere
+- **PutereAtac** – aplică 2 puncte de daune unui monstru adversar. Costa 4 fulgere
 - **PutereVindecare** – adaugă 2 puncte de viață propriului monstru (nu poate fi folosită în Tokyo). Costa 5 fulgere
 - **PutereEnergie** – adaugă 1 punct de victorie la finalul rundei. Costa 4 fulgere.
 
@@ -102,7 +102,7 @@ Mai mulți jucători pot avea copii ale aceleiași cărți.)
     - numărul maxim de monștri
     - viața maximă
     - numărul de jucători
-- **Factory** – utilizat pentru crearea monștrilor și a cărților de putere, în funcție de tipul ales
+- **Factory** – utilizat pentru returnarea directa a obiectelor de tip Monstru 
 - Evenimentele importante sunt logate prin funcții statice.
 
 ---

@@ -8,7 +8,8 @@ PutereEnergie::PutereEnergie(const std::string& nume_, int cost_, int valoare_)
     : Carte(nume_, cost_, valoare_) {}
 
 void PutereEnergie::aplicare(Monstru* m) {
-    m->adaugaFulgere(valoare);
+    if (!m) {return;}
+    *m += valoare;
 }
 
 std::string PutereEnergie::getDescriere() const {

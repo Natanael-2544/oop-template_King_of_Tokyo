@@ -8,7 +8,7 @@ int Monstru::idGenerator = 0;
 
 // Constructori
 Monstru::Monstru(const std::string& nume_, const int& viata_)
-    : nume(nume_), viata(viata_), puncteVictorie(0), fulgere(0), inTokyo(false), id(++idGenerator) {}
+    : nume(nume_), viata(viata_), viataMaxima(viata_),puncteVictorie(0), fulgere(0), inTokyo(false), id(++idGenerator) {}
 
 Monstru::Monstru(const Monstru& m)
     : nume(m.nume), viata(m.viata), puncteVictorie(m.puncteVictorie),
@@ -53,6 +53,8 @@ int Monstru::getFulgere() const { return fulgere; }
 void Monstru::adaugaFulgere(int val) { fulgere += val; }
 bool Monstru::getInTokyo() const { return inTokyo; }
 void Monstru::setInTokyo(bool val) { inTokyo = val; }
+int Monstru::getViataMaxima() const { return viataMaxima; }
+void Monstru::setViata(int v) { viata = v; }
 
 // Operator << pentru afisare
 std::ostream& operator<<(std::ostream& out, const Monstru& m) {

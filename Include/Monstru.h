@@ -16,6 +16,7 @@ protected:
     int fulgere;
     bool inTokyo;
     int id;
+    int viataMaxima;
     static int idGenerator;
 
 public:
@@ -39,6 +40,8 @@ public:
     void adaugaFulgere(int val);
     bool getInTokyo() const;
     void setInTokyo( bool val);
+    int getViataMaxima() const;
+    void setViata(int v);
 
     virtual int modificaDaune(int daune) const;
     virtual int bonusFulgere() const;
