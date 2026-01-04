@@ -12,11 +12,11 @@ class Monstru {
 protected:
     std::string nume;
     int viata;
+    int viataMaxima;
     int puncteVictorie;
     int fulgere;
     bool inTokyo;
     int id;
-    int viataMaxima;
     static int idGenerator;
 
 public:
