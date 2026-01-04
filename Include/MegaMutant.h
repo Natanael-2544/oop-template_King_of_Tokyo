@@ -12,9 +12,7 @@
 class MegaMutant : public Mutant, public Dragon, public Robot {
 public:
     explicit MegaMutant(const std::string& n);
-    MegaMutant(const MegaMutant& m);
 
-    MegaMutant& operator=(const MegaMutant& m);
 
     ~MegaMutant() override = default;
 
