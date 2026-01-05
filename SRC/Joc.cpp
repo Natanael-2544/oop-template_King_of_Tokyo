@@ -230,23 +230,17 @@ void Joc::verificaCumparareCarte(Monstru* j){
         return;
     }
 
+
     std::cout << "Oferte disponibile:\n";
     for(size_t i=0;i<oferteValide.size();i++)
         std::cout << i+1 << ". " << oferteValide[i]->getNume()
                   << ": " << oferteValide[i]->getDescriere()
                   << ". Costa " << oferteValide[i]->getCost() << " fulgere\n";
 
-    int alegere=0;
-    if (!(std::cin >> alegere)) {
-        std::cin.clear();
+    int alegere = citesteIntre(1, oferteValide.size(), "Alege o carte: ");
+    if(alegere == -1) {
         for(auto oc: oferte) delete oc;
-        return;
-    }
-
-    if(alegere < 1 || alegere > (int)oferteValide.size()){
-        std::cout << "Alegere invalida!\n";
-        for(auto oc: oferte) delete oc;
-        return;
+        return; // nu cumpara nimic
     }
 
     Carte* c = oferteValide[alegere-1];
@@ -377,9 +371,8 @@ void Joc::desfasurareJoc() {
     while (!stop && !JocTerminat()) {
         std::cout << "\n=== Runda " << nrrunda << " ===\n";
         runda();
-        std::cout << "Vrei sa inchei jocul acum? 1=DA,0=NU: ";
-        int opt; std::cin >> opt;
-        if (opt == 1) stop = true;
+        int opt = citesteIntre(0, 1, "Vrei sa inchei jocul acum? 1=DA,0=NU: ");
+        if(opt == 1) {stop = true;}
         afisareJucatori();
         nrrunda++;
     }
