@@ -18,5 +18,5 @@ void PutereVindecare::aplicare(Monstru* m) {
 }
 
 std::string PutereVindecare::getDescriere() const {
-    return "Adauga 2 puncte de viata propriului monstru (nu poate fi folosita în Tokyo)";
+    return "Adauga 2 puncte de viata propriului monstru (nu poate fi folosita in Tokyo)";
 }

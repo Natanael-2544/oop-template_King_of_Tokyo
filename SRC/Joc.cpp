@@ -21,6 +21,20 @@
 #include <map>
 #include <iostream>
 #include <string>
+
+int citesteIntre(int min, int max, const std::string& mesaj) {
+    int val;
+    while (true) {
+        std::cout << mesaj;
+        if (std::cin >> val) {
+            if (val >= min && val <= max) return val;
+        }
+        std::cout << "Valoare invalida, incearca din nou!\n";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+    }
+}
+
 // Instanta statica
 Joc* Joc::instance = nullptr;
 
@@ -89,8 +103,7 @@ void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
         int dauneActuale = inTokyo->modificaDaune(daune);
         std::cout << atacator->getNume() << " aplica " << dauneActuale << " daune catre " << inTokyo->getNume() << "\n";
         *inTokyo -= dauneActuale;
-        std::cout << inTokyo->getNume() << ", vrei sa iesi din Tokyo? 1=DA, 0=NU: ";
-        int opt; std::cin >> opt;
+        int opt = citesteIntre(0, 1, inTokyo->getNume() + ", vrei sa iesi din Tokyo? 1=DA, 0=NU: ");
         if(opt==1){
             inTokyo->setInTokyo(false);
             tokyoOcupat = false;
@@ -119,8 +132,7 @@ void Joc::aplicaDaune(const Monstru*  atacator, int daune) {
 // Metoda privata: intra in Tokyo
 void Joc::intraInTokyo(Monstru* j) {
     if(!tokyoOcupat){
-        std::cout << j->getNume() << ", vrei sa intri in Tokyo? 1=DA,0=NU: ";
-        int opt; std::cin >> opt;
+        int opt = citesteIntre(0, 1, j->getNume() + ", vrei sa intri in Tokyo? 1=DA, 0=NU: ");
         if(opt==1){
             tokyoOcupat = true;
             indexTokyo = std::distance(jucatori.begin(), std::find(jucatori.begin(), jucatori.end(), j));
@@ -199,8 +211,7 @@ void Joc::verificaCumparareCarte(Monstru* j){
         return;
     }
 
-    std::cout << "Vrei sa cumperi o carte? 1=DA, 0=NU: ";
-    int opt;
+    int opt = citesteIntre(0, 1, "Vrei sa cumperi o carte? 1=DA, 0=NU: ");
     if (!(std::cin >> opt)) {
         for (auto oc : oferte) delete oc;
         return;
@@ -326,24 +337,18 @@ void Joc::afisareClasament() {
         std::cout << i+1 << ". " << *jucatori[i] << "\n";
 }
 void Joc::setupJoc() {
-    int n;
     std::cout << "Bine ati venit la King of Tokyo!\n";
-    do {
-        std::cout << "Numar jucatori (2-4): ";
-        std::cin >> n;
-    } while (n < 2 || n > 4);
+    int n = citesteIntre(2, 4, "Numar jucatori (2-4): ");
 
     for (int i = 0; i < n; i++) {
-        std::cout << "Jucator " << i + 1 << ": Alege monstru:\n1. Mutant\n2. Dragon\n3. Robot\n4. MegaMutant\nOptiune: ";
-        int t;
-        std::cin >> t;
+        std::cout << "Jucator " << i + 1 << ": Alege monstru:\n1. Mutant\n2. Dragon\n3. Robot\n4. MegaMutant\n";
+        int t = citesteIntre(1, 4, "Optiune: ");
         Monstru* m = nullptr;
         switch(t) {
             case 1: m = MonstruFactory::mutant(""); break;
             case 2: m = MonstruFactory::dragon(""); break;
             case 3: m = MonstruFactory::robot(""); break;
             case 4: m = MonstruFactory::megaMutant(""); break;
-            default: throw std::runtime_error("Tip monstru invalid");
         }
         std::cin >> *m;
         adaugaJucatori(m);
