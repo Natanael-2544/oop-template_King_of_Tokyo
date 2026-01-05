@@ -11,9 +11,8 @@ class Mutant : virtual public Monstru {
 public:
     explicit Mutant(const std::string& n);
 
-    void atac(Monstru* t) override;
     void vindecare() override;
-    void folosestePutere() override;
+
     int bonusFulgere() const override;
 
 };

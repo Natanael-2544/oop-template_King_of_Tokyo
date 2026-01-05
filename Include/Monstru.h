@@ -29,9 +29,7 @@ public:
     Monstru& operator+=(int p);
     Monstru& operator-=(int dmg);
 
-    virtual void atac(Monstru* adversar) = 0;
     virtual void vindecare() = 0;
-    virtual void folosestePutere() = 0;
 
     const std::string& getNume() const;
     int getViata() const;

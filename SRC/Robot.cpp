@@ -6,19 +6,9 @@
 
 Robot::Robot(const std::string& n) : Monstru(n, 14) {}
 
-void Robot::atac(Monstru* t) {
-    if (!t) return;
-    *t -= 1;
-    *this += 1;
-}
-
 void Robot::vindecare() {
     viata += 2;
     if (viata > 14) viata = 14;
-}
-
-void Robot::folosestePutere() {
-    *this += 2;
 }
 
 int Robot::modificaDaune(int daune) const {

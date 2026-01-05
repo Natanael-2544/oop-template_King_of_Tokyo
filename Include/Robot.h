@@ -11,9 +11,8 @@ class Robot : virtual public Monstru {
 public:
     explicit Robot(const std::string& n);
 
-    void atac(Monstru* t) override;
     void vindecare() override;
-    void folosestePutere() override;
+
     int modificaDaune(int daune) const override;
 };
 

@@ -12,9 +12,8 @@ class Dragon : virtual public Monstru {
 public:
     explicit Dragon(const std::string& n);
 
-    void atac(Monstru* t) override;
     void vindecare() override;
-    void folosestePutere() override;
+
     int bonusVindecare() const override;
 
 };
