@@ -23,16 +23,23 @@
 #include <string>
 
 int citesteIntre(int min, int max, const std::string& mesaj) {
-    int val;
-    while (true) {
+    for(int incercare = 1; incercare <= 2; ++incercare) {
+        int val;
         std::cout << mesaj;
-        if (std::cin >> val) {
-            if (val >= min && val <= max) return val;
+        if (std::cin >> val && val >= min && val <= max) {
+            return val;
         }
-        std::cout << "Valoare invalida, incearca din nou!\n";
         std::cin.clear();
-        std::cin.ignore(10000, '\n');
+        char ch;
+        while (std::cin.get(ch) && ch != '\n');
+
+        if(incercare == 1) {
+            std::cout << "Input invalid! Mai ai o sansa.\n";
+        } else {
+            std::cout << "Input invalid din nou! Se va trece peste aceasta alegere.\n";
+        }
     }
+    return -1;
 }
 
 // Instanta statica
@@ -212,12 +219,13 @@ void Joc::verificaCumparareCarte(Monstru* j){
     }
 
     int opt = citesteIntre(0, 1, "Vrei sa cumperi o carte? 1=DA, 0=NU: ");
-    if (!(std::cin >> opt)) {
+    if (opt!=1) {
         for (auto oc : oferte) delete oc;
         return;
     }
 
-    if(opt != 1){
+    int optiune = citesteIntre(1, oferteValide.size(), "Alege o carte: ");
+    if(optiune == -1) {
         for(auto oc: oferte) delete oc;
         return;
     }
@@ -339,10 +347,15 @@ void Joc::afisareClasament() {
 void Joc::setupJoc() {
     std::cout << "Bine ati venit la King of Tokyo!\n";
     int n = citesteIntre(2, 4, "Numar jucatori (2-4): ");
+    if(n == -1) {return;}
 
     for (int i = 0; i < n; i++) {
         std::cout << "Jucator " << i + 1 << ": Alege monstru:\n1. Mutant\n2. Dragon\n3. Robot\n4. MegaMutant\n";
         int t = citesteIntre(1, 4, "Optiune: ");
+        if(t == -1) {
+            std::cout << "Jucatorul va fi sarit.\n";
+            continue;
+        }
         Monstru* m = nullptr;
         switch(t) {
             case 1: m = MonstruFactory::mutant(""); break;
