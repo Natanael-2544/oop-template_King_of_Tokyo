@@ -179,9 +179,10 @@ void Joc::aplicaSimboluri(Monstru* j, std::map<SimbolZar,int>& cnt) {
     }
 
     if(!j->getInTokyo() && cnt[SimbolZar::Inima] > 0){
-        int heal = 1 + j->bonusVindecare();
+        int heal = cnt[SimbolZar::Inima];
+        heal += j->bonusVindecare();
         for(int i=0;i<heal;i++) j->vindecare();
-        std::cout << j->getNume() << " s-a vindecat\n";
+        std::cout << j->getNume() << " s-a vindecat " << heal << " puncte de viata\n";
         std::cout << *j << "\n";
     }
 
@@ -224,13 +225,6 @@ void Joc::verificaCumparareCarte(Monstru* j){
         return;
     }
 
-    int optiune = citesteIntre(1, oferteValide.size(), "Alege o carte: ");
-    if(optiune == -1) {
-        for(auto oc: oferte) delete oc;
-        return;
-    }
-
-
     std::cout << "Oferte disponibile:\n";
     for(size_t i=0;i<oferteValide.size();i++)
         std::cout << i+1 << ". " << oferteValide[i]->getNume()
@@ -240,7 +234,7 @@ void Joc::verificaCumparareCarte(Monstru* j){
     int alegere = citesteIntre(1, oferteValide.size(), "Alege o carte: ");
     if(alegere == -1) {
         for(auto oc: oferte) delete oc;
-        return; // nu cumpara nimic
+        return;
     }
 
     Carte* c = oferteValide[alegere-1];

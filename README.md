@@ -35,7 +35,7 @@ In caz de egalitate, se rejoaca pana va castiga unul dintre ei.
                     - Zar 1 → 1 PV
                     - Zar 2 → 2 PV
                     - Zar 3 → 3 PV
-                  - Dacă apar mai mult de 3 zaruri identice, tripletul oferă PV, iar restul zarurilor rămase se transformă în fulgere.
+                  - Dacă apar mai mult de 3 zaruri identice, se acordă PV pentru fiecare triplet complet (grup de 3 zaruri), iar restul zarurilor se transformă în fulgere doar dacă sunt exact 2.
 
     - **⚡(*) Energie** – adaugă cuburi de energie
     - **❤️(H) Inimă** – vindecă puncte de viață (doar dacă monstrul nu se află în Tokyo)
